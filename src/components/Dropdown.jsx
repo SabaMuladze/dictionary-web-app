@@ -22,7 +22,12 @@ const Dropdown = ({ check }) => {
             setSelectClass('menu opacity-0 pointer-events-none h-0')
         }
 
-        document.querySelector('body').style.fontFamily = selected
+    }
+    document.querySelector('body').style.fontFamily = selected.toLowerCase()
+
+    if (selected == 'Mono') {
+        document.querySelector('body').style.fontFamily = 'Roboto Mono', ' monospace'
+
     }
 
     return (
@@ -34,9 +39,9 @@ const Dropdown = ({ check }) => {
                 </div>
             </div>
             <ul className={selectClass}>
-                <li className='cursor-pointer font-semibold hover:text-indigo-700 font-[sans-serif]' onClick={(e) => setSelected(e.target.textContent)}>Sans-Serif</li>
-                <li className='cursor-pointer font-semibold hover:text-indigo-700 font-serif' onClick={(e) => setSelected(e.target.textContent)}>Serif</li>
-                <li className='cursor-pointer font-semibold hover:text-indigo-700 font-mono' onClick={(e) => setSelected(e.target.textContent)}>Mono</li>
+                <li className='cursor-pointer font-semibold hover:text-[#A445ED] font-[sans-serif]' onClick={(e) => setSelected(e.target.textContent)}>Sans-Serif</li>
+                <li className='cursor-pointer font-semibold hover:text-[#A445ED]  font-[serif]' onClick={(e) => setSelected(e.target.textContent)}>Serif</li>
+                <li className='cursor-pointer font-semibold hover:text-[#A445ED] font-mono' onClick={(e) => setSelected(e.target.textContent)}>Mono</li>
             </ul>
         </div>
     )

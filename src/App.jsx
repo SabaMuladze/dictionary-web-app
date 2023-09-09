@@ -36,7 +36,7 @@ function App() {
     }
   }
   return (
-    <div className='max-md:p-6 md:px-10 md:py-14 md:w-[750px] max-md:w-full'>
+    <div className='max-md:p-6 md:px-10 md:py-14 md:w-[750px] max-md:w-full relative'>
       <header className='flex justify-between w-full pb-6'>
         <div>
           <img src={logo} alt="" />

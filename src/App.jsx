@@ -55,11 +55,12 @@ function App() {
         </div>
       </header>
       <form className='w-full' onSubmit={Api}>
-        <div className={check == false ? 'bg-[#F4F4F4] input-div w-full flex rounded-2xl' : 'bg-[#1F1F1F] input-div w-full flex rounded-2xl'}>
+        <div className={check == false ? 'bg-[#F4F4F4] input-div w-full flex rounded-2xl' : 'bg-[#1F1F1F] input-div w-full flex rounded-2xl'} style={value.length === 0 ? { border: 'solid 1px #FF5252' } : { border: 'none' }}>
           <input className='bg-transparent w-[87%] md:w-[93%] outline-none py-3 px-6 ' onChange={(e) => setValue(e.target.value)} type="text" />
           <button type='submit' onClick={() => setWord(value)} className='btn'><img src={search} alt="" /></button>
-
         </div>
+        <span className={value.length === 0 ? 'flex text-[#FF5252]' : 'hidden'}>Whoops, can’t be empty…</span>
+
         <div>
           <h1>{word}</h1>
           <p>{phonetic}</p>

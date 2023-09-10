@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -15,6 +15,8 @@ function App() {
   const [phonetic, setPhonetic] = useState('')
   const [data, setData] = useState('')
   const [check, setCheck] = useState(false)
+  const inputRef = useRef()
+  const spanRef = useRef()
 
   if (check == true) {
     document.querySelector('body').style.backgroundColor = '#050505'
@@ -34,7 +36,25 @@ function App() {
     } catch (error) {
       console.log(error);
     }
+    if (value.length === 0) {
+      inputRef.current.style.border = 'solid 1px red'
+      spanRef.current.style.display = 'flex'
+      spanRef.current.style.color = '#FF5252'
+
+
+
+    }
+    else {
+      inputRef.current.style.border = 'none'
+    }
   }
+
+  if (value.length > 0) {
+    inputRef.current.style.border = 'none'
+    spanRef.current.style.display = 'none'
+
+  }
+
   return (
     <div className='max-md:p-6 md:px-10 md:py-14 md:w-[750px] max-md:w-full relative'>
       <header className='flex justify-between w-full pb-6'>
@@ -55,11 +75,11 @@ function App() {
         </div>
       </header>
       <form className='w-full' onSubmit={Api}>
-        <div className={check == false ? 'bg-[#F4F4F4] input-div w-full flex rounded-2xl' : 'bg-[#1F1F1F] input-div w-full flex rounded-2xl'} style={value.length === 0 ? { border: 'solid 1px #FF5252' } : { border: 'none' }}>
+        <div ref={inputRef} className={check == false ? 'bg-[#F4F4F4] input-div w-full flex rounded-2xl' : 'bg-[#1F1F1F] input-div w-full flex rounded-2xl'}>
           <input className='bg-transparent w-[87%] md:w-[93%] outline-none py-3 px-6 ' onChange={(e) => setValue(e.target.value)} type="text" />
           <button type='submit' onClick={() => setWord(value)} className='btn'><img src={search} alt="" /></button>
         </div>
-        <span className={value.length === 0 ? 'flex text-[#FF5252]' : 'hidden'}>Whoops, can’t be empty…</span>
+        <span className='hidden' ref={spanRef}>Whoops, can’t be empty…</span>
 
         <div>
           <h1>{word}</h1>
@@ -71,3 +91,6 @@ function App() {
 }
 
 export default App
+
+
+// style={value.length === 0 ? { border: 'solid 1px #FF5252' } : { border: 'none' }}

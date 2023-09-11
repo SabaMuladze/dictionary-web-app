@@ -1,5 +1,7 @@
 import { useState } from 'react'
 function ErrorSection({ data, error }) {
+    console.log(error);
+    // console.log(data);
     return (
         <section className='flex flex-col items-center justify-center'>
             <div className='scale-[290%] mb-11 mt-20'>

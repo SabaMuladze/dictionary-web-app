@@ -1,5 +1,5 @@
 const Definitions = ({ data, word, error }) => {
-    console.log(data);
+    // console.log(data);
     return (
         <>
             {word.length > 0 && error == '' ? <div className=" mt-6">
@@ -22,7 +22,7 @@ const Definitions = ({ data, word, error }) => {
                             <div>
                                 {mean.definitions.map(def => {
                                     return (
-                                        <p className="my-3">{def.definition}</p>
+                                        <p className="my-3"><span className="w-[5px] h-[5px] bg-indigo-800 rounded-full"></span>{def.definition}</p>
                                     )
                                 })}
                             </div>

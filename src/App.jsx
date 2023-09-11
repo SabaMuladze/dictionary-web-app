@@ -89,7 +89,7 @@ function App() {
       </form>
 
       <div>
-        {error === '' && data != null ? <Definitions data={data} word={word} error={error} /> : (data != null ? <ErrorSection error={error} data={data} /> : '')}
+        {error === '' && data != null ? <Definitions data={data} word={word} error={error} /> : (error != '' ? <ErrorSection error={error} data={data} /> : null)}
       </div>
     </div>
   )
@@ -99,3 +99,5 @@ export default App
 
 
 // style={value.length === 0 ? { border: 'solid 1px #FF5252' } : { border: 'none' }}
+
+// (data != null && error.length > 0 ? <ErrorSection error={error} data={data} /> : '')

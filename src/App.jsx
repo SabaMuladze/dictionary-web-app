@@ -20,6 +20,7 @@ function App() {
 
   const inputRef = useRef()
   const spanRef = useRef()
+  const inputValRef = useRef()
 
   if (check == true) {
     document.querySelector('body').style.backgroundColor = '#050505'
@@ -31,7 +32,7 @@ function App() {
     document.querySelector('body').style.color = '#000'
   }
 
-  const Api = async (event) => {
+  const Api = async (value, event) => {
     event.preventDefault()
     try {
       const response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/` + value)
@@ -80,16 +81,16 @@ function App() {
           </div>
         </div>
       </header>
-      <form className='w-full' onSubmit={Api}>
+      <form className='w-full' onSubmit={() => Api(value, event)}>
         <div ref={inputRef} className={check == false ? 'bg-[#F4F4F4] input-div w-full flex rounded-2xl' : 'bg-[#1F1F1F] input-div w-full flex rounded-2xl'}>
-          <input className='bg-transparent w-[87%] md:w-[93%] outline-none py-3 px-6 ' onChange={(e) => setValue(e.target.value)} type="text" />
+          <input ref={inputValRef} className='bg-transparent w-[87%] md:w-[93%] outline-none py-3 px-6 ' onChange={(e) => setValue(e.target.value)} type="text" />
           <button type='submit' onClick={() => setWord(value)} className='btn'><img src={search} alt="" /></button>
         </div>
         <span className='hidden' ref={spanRef}>Whoops, can’t be empty…</span>
       </form>
 
       <div>
-        {error === '' && data != null ? <Definitions data={data} word={word} error={error} /> : (error != '' ? <ErrorSection error={error} data={data} /> : null)}
+        {error === '' && data != null ? <Definitions data={data} word={word} error={error} setValue={setValue} Api={Api} setWord={setWord} /> : (error != '' && word.length > 1 ? <ErrorSection error={error} data={data} /> : null)}
       </div>
     </div>
   )

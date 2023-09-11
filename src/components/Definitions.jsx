@@ -14,9 +14,9 @@ const Definitions = ({ data, word, error, setValue, Api, setWord }) => {
         <>
             {word.length > 0 && error == '' ? <div className=" mt-6">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-3xl font-semibold flex flex-col">
+                    <h1 className="text-3xl font-semibold flex flex-col md:text-[64px]">
                         {word}
-                        <span className=" text-[18px] text-[#A445ED]">{data[0].phonetic}</span>
+                        <span className=" text-[16px] text-[#A445ED] md:mt-6 md:text-2xl">{data[0].phonetic}</span>
                     </h1>
                     <svg onClick={speakHandler} className="max-md:scale-75" xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75"><g fill="#A445ED" fillRule="evenodd"><circle cx="37.5" cy="37.5" r="37.5" opacity=".25" /><path d="M29 27v21l21-10.5z" /></g></svg>
                 </div>

@@ -1,15 +1,18 @@
-import { useSpeechSynthesis } from 'react-speech-kit'
+import { useEffect, useRef, useState } from "react";
 const Definitions = ({ data, word, error, setValue, Api, setWord }) => {
     const synonymFunc = (value, event) => {
         Api(value, event)
         setWord(value)
     }
-    const { speak } = useSpeechSynthesis()
 
-    const speakHandler = () => {
-        speak({ text: word })
+    const audio = data[0]?.phonetics.find(phonetic => phonetic.audio)
+    const audioNo = '';
+    const audioRef = useRef()
+    const playAudio = () => {
+        if (audioRef.current) {
+            audioRef.current.play();
+        }
     }
-
     return (
         <>
             {word.length > 0 && error == '' ? <div className=" mt-6">
@@ -18,12 +21,14 @@ const Definitions = ({ data, word, error, setValue, Api, setWord }) => {
                         {word}
                         <span className=" text-[16px] text-[#A445ED] md:mt-6 md:text-2xl">{data[0].phonetic}</span>
                     </h1>
-                    <svg onClick={speakHandler} className="max-md:scale-75" xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75"><g fill="#A445ED" fillRule="evenodd"><circle cx="37.5" cy="37.5" r="37.5" opacity=".25" /><path d="M29 27v21l21-10.5z" /></g></svg>
+                    <audio ref={audioRef} src={audio === undefined ? audioNo : audio.audio} >
+                    </audio>
+                    <svg onClick={playAudio} className="max-md:scale-75 " xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75"><g fill="#A445ED" fillRule="evenodd"><circle className="hover:opacity-100" cx="37.5" cy="37.5" r="37.5" opacity=".25" /><path d="M29 27v21l21-10.5z" /></g></svg>
                 </div>
 
-                {data[0].meanings.map(mean => {
+                {data[0].meanings.map((mean, index) => {
                     return (
-                        <div className="mt-7" key={Math.floor(Math.random() * (100 - 1 + 1)) + 1}>
+                        <div className="mt-7" key={index}>
                             <div className="flex items-center gap-6 mb-7">
                                 <p>{mean.partOfSpeech}</p>
                                 <span className="bg-[#E9E9E9] w-[100%] h-[1px]"></span>
@@ -43,10 +48,6 @@ const Definitions = ({ data, word, error, setValue, Api, setWord }) => {
                                 {mean.synonyms.length > 0 ? <p className="text-[#757575]">Synonyms: <span onClick={(e) => synonymFunc(e.target.textContent, event)} className="text-[#A445ED] font-semibold cursor-pointer">{mean.synonyms[0]}</span></p> : null}
 
                             </div>
-
-
-
-
                         </div>
                     )
                 })}
@@ -63,5 +64,3 @@ const Definitions = ({ data, word, error, setValue, Api, setWord }) => {
 }
 
 export default Definitions
-
-{/* <span className=" text-[18px] text-[#A445ED]">{data.map(dat => dat.matches(text))}</span> */ }

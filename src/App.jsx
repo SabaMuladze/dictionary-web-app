@@ -1,7 +1,4 @@
 import { useState, useRef, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 import axios from 'axios'
 import search from '/assets/images/icon-search.svg'
 import logo from '/assets/images/logo.svg'
@@ -9,7 +6,6 @@ import Dropdown from './components/Dropdown'
 import moon from '/assets/images/icon-moon.svg'
 import ErrorSection from './components/ErrorSection'
 import Definitions from './components/definitions'
-// import darkmode from './components/Darkmode'
 
 function App() {
   const [value, setValue] = useState('')
@@ -97,8 +93,3 @@ function App() {
 }
 
 export default App
-
-
-// style={value.length === 0 ? { border: 'solid 1px #FF5252' } : { border: 'none' }}
-
-// (data != null && error.length > 0 ? <ErrorSection error={error} data={data} /> : '')

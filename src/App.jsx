@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -7,14 +7,17 @@ import search from '/assets/images/icon-search.svg'
 import logo from '/assets/images/logo.svg'
 import Dropdown from './components/Dropdown'
 import moon from '/assets/images/icon-moon.svg'
+import ErrorSection from './components/ErrorSection'
+import Definitions from './components/definitions'
 // import darkmode from './components/Darkmode'
 
 function App() {
   const [value, setValue] = useState('')
   const [word, setWord] = useState('')
-  const [phonetic, setPhonetic] = useState('')
-  const [data, setData] = useState('')
+  const [data, setData] = useState(null)
   const [check, setCheck] = useState(false)
+  const [error, setError] = useState('')
+
   const inputRef = useRef()
   const spanRef = useRef()
 
@@ -32,10 +35,13 @@ function App() {
     event.preventDefault()
     try {
       const response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/` + value)
-      setData(response.data)
+      const data = response.data
+      setData(data)
+      setError('')
     } catch (error) {
-      console.log(error);
+      setError(error)
     }
+
     if (value.length === 0) {
       inputRef.current.style.border = 'solid 1px red'
       spanRef.current.style.display = 'flex'
@@ -80,12 +86,11 @@ function App() {
           <button type='submit' onClick={() => setWord(value)} className='btn'><img src={search} alt="" /></button>
         </div>
         <span className='hidden' ref={spanRef}>Whoops, can’t be empty…</span>
-
-        <div>
-          <h1>{word}</h1>
-          <p>{phonetic}</p>
-        </div>
       </form>
+
+      <div>
+        {error === '' && data != null ? <Definitions data={data} word={word} error={error} /> : (data != null ? <ErrorSection error={error} data={data} /> : '')}
+      </div>
     </div>
   )
 }

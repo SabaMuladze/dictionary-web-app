@@ -1,5 +1,5 @@
 const Definitions = ({ data, word, error }) => {
-    // console.log(data);
+    console.log(data[0]);
     return (
         <>
             {word.length > 0 && error == '' ? <div className=" mt-6">
@@ -22,15 +22,31 @@ const Definitions = ({ data, word, error }) => {
                             <div>
                                 {mean.definitions.map(def => {
                                     return (
-                                        <p className="my-3"><span className="w-[5px] h-[5px] bg-indigo-800 rounded-full"></span>{def.definition}</p>
+                                        <>
+                                            <div className="flex flex-col">
+                                                <div className="flex items-center gap-5">
+                                                    <div className="w-[5px] h-[5px] bg-indigo-800 rounded-full text-transparent">...</div><p className="my-3">{def.definition}</p>
+                                                </div>
+                                                {def.example ? <p className="my-3 text-[#757575] pl-5">"{def.example}"</p> : null}
+                                            </div>
+                                        </>
                                     )
                                 })}
+                                {mean.synonyms.length > 0 ? <p className="text-[#757575]">Synonyms: <span className="text-[#A445ED] font-semibold">{mean.synonyms[0]}</span></p> : null}
+
                             </div>
+
+
 
 
                         </div>
                     )
                 })}
+                <div className="flex flex-col">
+                    <span className="w-[100%] h-[1px] bg-[#E9E9E9] mb-6"></span>
+                    <p className="underline text-[#757575]">Source</p>
+                    <a className=" underline" target="_blank" href={data[0].sourceUrls[0]}>{data[0].sourceUrls[0]}</a>
+                </div>
 
             </div> : null}
         </>

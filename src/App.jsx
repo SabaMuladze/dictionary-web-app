@@ -5,7 +5,7 @@ import logo from '/assets/images/logo.svg'
 import Dropdown from './components/Dropdown'
 import moon from '/assets/images/icon-moon.svg'
 import ErrorSection from './components/ErrorSection'
-import Definitions from './components/definitions'
+import Definition from './components/Definition'
 
 function App() {
   const [value, setValue] = useState('')
@@ -86,7 +86,7 @@ function App() {
       </form>
 
       <div>
-        {error === '' && data != null ? <Definitions data={data} word={word} error={error} setValue={setValue} Api={Api} setWord={setWord} /> : (error != '' && word.length > 1 ? <ErrorSection error={error} data={data} /> : null)}
+        {error === '' && data != null ? <Definition data={data} word={word} error={error} setValue={setValue} Api={Api} setWord={setWord} /> : (error != '' && word.length > 1 ? <ErrorSection error={error} data={data} /> : null)}
       </div>
     </div>
   )

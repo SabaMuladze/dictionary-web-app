@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-const Definitions = ({ data, word, error, setValue, Api, setWord }) => {
+const Definition = ({ data, word, error, setValue, Api, setWord }) => {
     const synonymFunc = (value, event) => {
         Api(value, event)
         setWord(value)
@@ -63,4 +63,4 @@ const Definitions = ({ data, word, error, setValue, Api, setWord }) => {
     )
 }
 
-export default Definitions
+export default Definition
